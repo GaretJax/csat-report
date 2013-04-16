@@ -1,0 +1,45 @@
+\begin{titlepage}
+\thispagestyle{empty}
+
+\vspace*{10mm}
+\includegraphics{images/logo_mse}
+\vspace{5mm}
+
+\newsavebox{\maintitle}
+\savebox{\maintitle}{\Huge \doctitle}
+
+\newlength{\titlew}
+\settowidth{\titlew}{\usebox{\maintitle}}
+
+
+\hrule
+\vspace{0.2mm}
+\usebox\maintitle
+\vspace{4mm}
+\hrule
+\begin{minipage}[t]{\titlew}
+  \begin{spacing}{1.1}
+    \large \subtitle
+  \end{spacing}
+\end{minipage}
+\vspace{100mm}
+
+\hrule
+\vspace{-1mm}
+\begin{minipage}[t]{0.5\textwidth}
+    \begin{flushleft}
+        Jonathan Stoppani\\[1.5mm]
+        \today
+    \end{flushleft}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+	\begin{flushright}
+	  \emph{Supervisors}\hspace{2.5mm} Prof. Olivier L. de Weck\\[1.5mm]
+	  Prof. Pierre Kuonen
+    \end{flushright}
+\end{minipage}
+\vspace{3.5mm}
+\hrule
+
+
+\end{titlepage}

@@ -1,0 +1,15 @@
+%\newglossaryentry{xxx}{
+%  type=xxx,
+%  name=xxx,
+%  description={
+%	xxx
+%  }
+%}
+%
+%\newcommand{\xxx}{}
+%\newglossaryentry{xxx}{
+%  type=xxx,
+%  name=xxx,
+%  text=xxx,
+%  description={\protect\xxx}
+%}

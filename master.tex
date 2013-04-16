@@ -1,0 +1,52 @@
+\documentclass[10pt,a4paper,twoside,onecolumn,english]{report}
+
+\input{preamble}
+
+\settitle{Project title}{Project subtitle}
+\addauthor{Jonathan Stoppani}
+
+\input{headers-footers}
+
+\begin{document}
+  % Title page
+  %\includepdf[pages=-,pagecommand={\thispagestyle{empty}},scale=1]{images/mse-front.pdf}
+  %\null\newpage
+  \input{title}
+  \null\newpage
+
+  % Front matter
+  \pagestyle{front}
+  \pagenumbering{roman}
+  \input{frontmatter}
+
+  \clearchap
+  \input{abstract}
+
+  % Table of contents
+  \cleartoodd
+  \begin{adjustwidth}{-\cftsecnumwidth}{0cm}
+  	\pagestyle{front}
+	\renewcommand*\contentsname{\hspace{15pt}Contents}
+	\tableofcontents
+
+	\mylistings
+	
+  \end{adjustwidth}
+
+  % Prefaces automatic inclusion (abstract,...)
+  \includescript{scripts/include-content.py prefaces}
+  \cleartoodd
+
+  % Main content automatic inclusion
+  \clearchap
+  \pagestyle{main}
+  \pagenumbering{arabic}
+  \includescript{scripts/include-content.py content}
+
+  % Appendices automatic inclusion
+  \appendix
+  \labelformat{chapter}{appendix~#1}
+  \labelformat{section}{subappendix~#1}
+  \labelformat{subsection}{subappendix~#1}
+  \includescript{scripts/include-content.py appendices}
+\end{document}

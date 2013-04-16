@@ -1,0 +1,81 @@
+\lstdefinelanguage{prompt}{
+	morecomment=[l][\color{Black}]{\#},
+	morecomment=[l][\color{Black}]{\$},
+	morecomment=[f]{\#},
+}
+
+\lstdefinelanguage{cuda}{
+  morekeywords={\_\_global\_\_,\_\_device\_\_,dim3, gridDim, blockDim, blockIdx, threadIdx, cudaMalloc, cudaMemcpy, cudaMemcpyDeviceToHost, cudaMemcpyHostToDevice},
+  otherkeywords={<<<,>>>},
+}
+\lstdefinestyle{cuda}{
+  keywordstyle=\color{black}\bfseries,
+  language=cuda,
+  escapeinside={(@}{@)},
+}
+
+\lstnewenvironment{lstplain}[1][caption=,label=]{%
+	\lstset{
+		language=prompt,
+		numbers=none,
+		xleftmargin=0pt,
+		framexleftmargin=0pt,
+		framexbottommargin=1pt,
+		framextopmargin=0pt,
+		#1
+	}
+	\vspace{.5\parskip}
+}{}
+
+
+\lstnewenvironment{rootprompt}[1][caption=,label=]{%
+	\lstset{
+		language=prompt,
+		numbers=none,
+		basicstyle=\color{BrickRed}\footnotesize\ttfamily,
+		xleftmargin=6pt,
+		framexleftmargin=6pt,
+		framextopmargin=.5pt,
+		framexbottommargin=1pt,
+		rulecolor=\color{verylightgray},
+		backgroundcolor=\color{verylightgray},
+		#1
+	}
+}{\vspace*{-2mm}}
+
+\lstnewenvironment{userprompt}[1][caption=,label=]{%
+    \vspace{2mm}
+	\lstset{
+		language=prompt,
+		numbers=none,
+		basicstyle=\footnotesize\bf\ttfamily,
+		xleftmargin=0pt,
+		xrightmargin=0pt,
+		framexleftmargin=0pt,
+		framexrightmargin=0pt,
+		framextopmargin=0pt,
+		framexbottommargin=0pt,
+		#1
+	}
+}{\vspace*{-2mm}}
+
+\lstnewenvironment{cmdresult}[1][caption=,label=,language=]{%
+	\lstset{
+		numbers=none,
+		xleftmargin=0pt,
+		xrightmargin=0pt,
+		framexleftmargin=0pt,
+		framexrightmargin=0pt,
+		framextopmargin=0pt,
+		framexbottommargin=1pt,
+		language=,
+		frame=b,
+		#1
+	}
+	\vspace*{-1.2mm}
+}{\vspace*{-2mm}}
+
+
+\lstnewenvironment{edit}[1][caption=,label=,language=bash]{%
+	\lstset{numbers=left,xleftmargin=17pt,framexleftmargin=17pt,numbersep=10pt,#1}
+}{\vspace*{-2mm}}

@@ -1,0 +1,58 @@
+\begin{otherlanguage}{english}
+\newgeometry{left=5.5cm}
+
+\subsection*{Document information}
+
+\renewcommand{\fmtauthor}[1]{{#1}}
+
+\begin{tabularx}{\linewidth}{ @{}>{\itshape\raggedleft}p{2.1cm}@{{\itshape:}\hspace{3mm}} X }
+Reference       & csat-report           \tabularnewline[1mm]
+Version         & \includescript{git tag | tail -1}                   \tabularnewline[1mm]
+Status          & Stub                  \tabularnewline[1mm]
+Issued on       & \today                \tabularnewline[1mm]
+Author(s)       & \authorslist          \tabularnewline[1mm]
+Owner           & Jonathan Stoppani     \tabularnewline[1mm]
+\# of pages     & \pageref{LastPage}    \tabularnewline[1mm]
+Classification  & Unclassified          \tabularnewline[1mm]
+\end{tabularx}
+
+
+\subsection*{Contact information}
+
+\begin{tabularx}{\linewidth}{ @{}>{\itshape\raggedleft}p{2.1cm}@{{\itshape:}\hspace{3mm}} X }
+Address  & Jonathan Stoppani                    \newline
+           77 Massachussets Ave.                \newline
+           Building E40-231                     \newline
+           Cambridge, MA 02139                  \newline
+           USA                                  \tabularnewline[1mm]
+Phone    & +1 781 308 5676                      \tabularnewline[1mm]
+Email    & \email{jonathan@stoppani.name}       \tabularnewline[1mm]
+Web      & \url{http://jonathan.stoppani.name}  \tabularnewline[1mm]
+\end{tabularx}
+
+\subsection*{Signature}
+\vspace{3mm}
+\begin{tabularx}{0.8\linewidth}{ @{}>{\itshape\raggedleft}p{2.1cm}@{{\itshape:}\hspace{3mm}} X }
+Date      & \hrule \tabularnewline[3mm]
+Signature & \hrule \tabularnewline[1mm]
+\end{tabularx}
+
+
+\subsection*{Document history}
+
+\begin{tabularx}{\linewidth}{ l | l | X }
+\toprule
+\textbf{Date} & \textbf{Issuer} & \textbf{Comment} \tabularnewline
+\midrule
+\includescript{pytex versions -l}
+\bottomrule
+\end{tabularx}
+
+\vfill
+
+Copyright © 2013 Jonathan Stoppani.
+
+All rights reserved. No part of this document may be reproduced, stored in a retrieval system, or transmitted in any form, by any means, including mechanical, electronic, photocopying, recording, or otherwise, without the prior written consent of the owner.
+
+\restoregeometry
+\end{otherlanguage} 
