@@ -1,0 +1,211 @@
+\lchapter[notes]{Various notes}
+\todo{This appendix is a collection of notes waiting to make their way into the respective chapters of the report.}
+
+\section{May 1, 2013} 
+
+Make the collector processes print an enhanced GraphML graph to stdout instead of JsonRPC commands (still use JsonRPC commands for tasks updates).
+This way we reduce the overall complexity and allow for better traceability. The GraphML file is then passed back to the webhook and saved to disk + referenced in the SQL database. Once all collector callbacks were returned, the application server can then merge these files into a single one (make them available over HTTP) and publish to the graph database. Different interfaces will then be offered to the different files (one per collector + one for the whole session): 1) GraphML over HTTP, 2) Gremlin over Rexster, 3) Gephi Master, 4) Gephi Client (only one of these two?)
+
+Make each collector restartable. We can thus repeat single acquisition processes in the case they where misconfigured or new data is available. The good acquired data does not have to be acquired again, only the final merge (to a possible different location).
+
+The database selection use case will probably be moved to a later part and maybe enhanced to select the interfaces to the data we'd like to enable (see previous paragraphs). This may add too much complexity to the configuration for the end user. It may be better to simple make all interfaces available (with correct security mechanisms).
+
+Structuring the application around acquisition + publishing on different types of interfaces on one side, and making this part loosely coupled from the rest (visualization + analysis) may help us in a better design and suitability to user needs. In fact, users can use the application only to gather data and then use other tools to interact with this data. On the other hand, users which already dispose of data files can ignore the data acquisition application and use the visualization/analysis application only.
+
+Summary: try to make the acquisition (one one side) and the visualization + analysis (on the other) as loosely coupled as possible. The only coupling between them should be necessary only in order to ensure a better user experience, but not for design/technical reasons.
+
+We should spend more time in the designing of the acquisition application web structure (which resources are available where, intuitive and user-friendly URL patterns, command line usage,\ldots). Also, add usage examples to the report.
+
+However we still need to make the link between acquired and visualized data. I'd like to arrive to the end and realise that there is not enough time for that, so we may decide which interface to use for the communication between these two applications and concentrate the efforts on this one until a link is established.
+
+\section{May 2,  2013}
+
+Acquisition application URL structure. The following tables resume the URLs available from the web application frontend. The majority of the resources are directly mapped to a use case (as identified by the first column).
+
+\newcounter{uc}
+\setcounter{uc}{0}
+\newcommand{\rnum}[0]{
+    \addtocounter{uc}{1}
+    \padzeroes[2]{\decimal{uc}}
+}
+
+The following URLs are relative to \texttt{/acquisition/session/}, \texttt{<id>} refers to the session ID.
+
+\begin{tabularx}{\linewidth}{ l | X | p{8.5cm} }
+    \toprule
+    \textbf{UC} & \textbf{URL} & \textbf{Description} \\
+    \midrule
+    \rnum & \texttt{/} & List acquisition sessions (may be at \texttt{sessions/} insted of \texttt{session/}). \\
+    \rnum & \texttt{/new/} & Create a new acquisition session \\
+    \rnum & \texttt{/<id>/} & Display acquisitions session details. Summary, edit and run buttons, tasks in progress, generated results. \\
+    \rnum & \texttt{/<id>/delete/} & Remove the acquisition session and all related content. \\
+    \rnum & \texttt{/<id>/edit/} & Edit the acquisition session (is this available if the session was already run?). \\
+    \rnum & \texttt{/<id>/run/} & Execute the configured acquisition session (can a session be run multiple times?). \\
+    \rnum & \footnotesize{\texttt{/<id>/<resid>.graphml}} & Get the GraphML file corresponding to the acquisition session run. \\
+    \bottomrule
+\end{tabularx}
+
+
+The following URLs are relative to \texttt{/acquisition/collector/}, \texttt{<id>} refers to the collector ID.
+
+\begin{tabularx}{\linewidth}{ l | X | p{8.5cm} }
+    \toprule
+    \textbf{UC} & \textbf{URL} & \textbf{Description} \\
+    \midrule
+    \rnum & \texttt{/new/} & Create a new collector. \\
+    \rnum & \texttt{/<id>/edit/} & Edit the collector configuration. \\
+    \rnum & \texttt{/<id>/delete/} & Remove the acquisition session and all related content. \\
+    \rnum & \footnotesize{\texttt{/<id>/<resid>.graphml}} & Get the GraphML file corresponding to the acquisition session run for this specific collector only. PUT can be used to upload the results if none are available yet. \\
+    \bottomrule
+\end{tabularx}
+
+\todo{Update URLs, update UCs and correct references from URLs to UCs.}
+
+Remember to set a task order and to make sure they are assigned to the correct collector (when first loading them from the server.
+
+\section{May 3, 2013}
+
+The NetworkX GraphML output is limited to the capabilities of the library. We may need more features even if not supported by the graph engine (storage + retrieval/transformation and analysis with different tools). The GraphMLWriter class can be subclassed to implement additional functionality, but we may consider implementing a graph library which focuses on manipulation (add/remove edge/node) and reading/writing to GraphML and which includes GraphML's features like data, multiple graphs, nested graphs,\ldots If we end up using custom extensions in the form of different XML namespaces this makes even more sense.
+
+Currently, NetworkX does not add the \texttt{parse.} attributes to the graph objects it stores in GraphML format. We may want to display this information as part of a summary when interacting with the user and parsing the whole file (can in the order of the GBs) is not desirable. When we will reach that point, it will make sense to add support for these parameters to the NetworkX GraphML implementation.
+
+\section{May 6, 2013}
+
+Each collector uploads two files to communicate the results back to the server:
+\begin{enumerate}
+    \item A GraphML file containing the acquired graph data;
+    \item A text file containing the execution log (mainly for debugging and tracing purposes).
+\end{enumerate}
+
+At the same time, it also communicates if the collection process terminated successfully or not.
+
+A GraphML file can contain one or more graphs. Graphs can also be nested (\ie a node contains a whole graph) and links can be defined to/from nodes in a graph and in a subgraph. For the purposes of our application, we need to identify the domains to which the nodes of a graph belong to. The base rule is the following:
+
+\begin{quote}
+    Each domain is modeled using a subgraph which lives in a single node of its single parent graph element. This is equivalent to saying that each document contains a single graph. This graph contains a node for each domain it models. This node contains a subgraph (or nested graph) which in turn contains the nodes of the elements in the specific domains. In case of single-domain documents, the parent graph can be omitted. Each graph shall expose information about the domains it models.
+\end{quote}
+
+Once all collectors terminated their execution, the application server merges all GraphML files in a single file by following these rules:
+
+\begin{enumerate}
+    \item A container graph is created, with a nested graph in a node for each unique domain found across all documents
+    \item Two (or more) nodes in the same domain and with the same ID represent a single entity. Their attributes are merged together (TODO: we still have to define precedence for conflicting properties).
+    \item Edges to two equivalent entities are redirected to the merged node.
+\end{enumerate}
+
+\subsection{Standalone graph viewer}
+
+The standalone graph viewer is intended as the first prototype of a completely decoupled graph viewer application which can run offline with optional server side additions (complex algorithms execution, layout computing offloading,\ldots).
+
+We could use HTML 5 local storage API to download and store graph objects locally for later use and combined analysis. The HTML 5 storage quota limit of 5 MB may be an issue, though.
+
+We shall use Javascript Worker Threads for the layout. It is imperative that these expensive computation run on a different thread than the 3D visualization engine or all the interfaced will be locked.
+
+\section{May 7, 2013}
+
+The database was temporarily removed from the architecture in favor of passing GraphML files around. This has the following advantages:
+
+\begin{enumerate}
+    \item Makes the whole architecture much less coupled, as there is no one central database, but HTTP resources which can be placed anywhere. (well, almost anywhere\ldots We have to check that in regard to the same origin policy enforced on javascript by the browser).
+    \item Simplifies the architecture and the deployment as there is one less moving piece in the equation.
+    \item Allows for higher flexibility in resource management, graph storage,\ldots
+\end{enumerate}
+
+However, the Gremlin-based database layer provided the following advantages:
+
+\begin{enumerate}
+    \item Great built-in support for advanced graph algorithms.
+    \item Easier to achieve better performance (GraphML uses XML, \ie size and parsing overhead).
+\end{enumerate}
+
+Probably, such a database will be interesting for the visualization/analysis layer when working on large graphs. It can always be added back for the visualization application only, but without making it a central piece connecting all applications together.
+
+\section{May 15, 2013}
+
+Gephi does not support dynamic (time) graphs with the GraphML format. Write an XSL stylesheet to convert from GraphML to GEXF. This can then be used to offer the GEXF file as part of the acquisition browsing application. The names of the fields indicating the \texttt{start} and \texttt{stop} attributes on the resulting GEXF file should be configurable (XSL parameters?).
+
+How can we merge the names from the SVN checkout (in the form username@UUID) with the email addresses used on the mailing list? Fuzzy matching? Probably the data in the issue tracker can help with this!
+
+Using \texttt{git-svn} allows to support both git and svn repositories with a single source tree. Utilities should be provided to find the SVN commit ID from the GIT commit one in order to be able to restore links when working with multidomain data. git-svn stores the SVN commit as part of the comment.
+
+Describe these in the documentation: collectors GraphML file format, merging process, collectors types (mainly single domain, cross domain, but can be anything).
+
+\begin{todos}{TODOs before the report}
+    \done Checkout repository to temporary location
+    \done Update existing
+    \done Python-GIT collector configuration
+    \done Data merging
+    \item \textbf{Multi-domain visualization (layers)}
+    \item \textbf{Time-sequences visualization}
+\end{todos}
+
+\begin{todos}{Other TODOs}
+    \item Layer mgmt in visualization app
+    \item Gephi streaming
+    \done PyGit collector with remote repositories
+    \item Issue tracker data import
+    \done Collection server command line utility
+    \done Other apps cleanup (move from django/apps to main directory)
+    \item setup.py
+    \item Publishing
+    \item Technical docs (sphinx) + integration in the report
+    \item Utility to manage the whole application (webserver, collector server,\ldots)
+    \item Environment checking/tests utility (git has to be available)
+    \item Sqlite3 database switch (less performance but easier to deploy)
+    \item Collector config order in edit/\ldots views
+    \item Task order
+    \item GraphML file validation on upload \textbf{Implemented but schema not working}
+    \done Multi-domain data output from collectors
+    \item Multi-domain validation on upload
+    \item Time-limited data acquisition for the pipermail collector
+    \item Replace GitPython with Dulwhich in order to not have to rely on the git executable
+    \item More data mgmt features (\sout{merging}, flattening, direction, conversion,\ldots)
+    \item Sample test data for each single collector + visualization
+    \item Interface consistency in acquisition views (completed, error reporting if utility fails to start,\ldots)
+    \item \textbf{Move layout algorithms to web worker}
+    \item \textbf{Modify layout engine in order to have an internal optimal position and the actual position of the node, in order to be able to animate between them, reduce flickering and augment the visibility.}
+    \item Add first interaction timestamp to pipermail output
+    \item \textbf{Server side layout}
+    \item JAVA collector for ANT
+    \done Graph merging utility
+    \item XSL conversion from GraphML to GEXF
+    \item \textbf{Domain specific layout algorithms}
+    \item Basic graph stats on acquisition results page
+\end{todos}
+
+\begin{todos}{Report TODOs}
+    \item Collector utility usage
+    \item Collection process (end to end)
+    \item How to write a new collector, collector types
+    \item Data formats, handling, merging process
+    \item Description/usage of the pipermail collector
+    \item Description/usage of the pygit collector
+    \item Javascript profiling and optimization
+    \item Graph of FPS over graph order/size
+\end{todos}
+
+\section{May 16, 2013}
+
+\subsection{Limitations of the GraphML specification}
+
+By implementing a full-featured GraphML parsing engine, we incurred in several issues concerning the specification document. The following list enumerates the our findings (in no particular order):
+
+\begin{enumerate}
+    \item It is not clear how to deal with the \texttt{parse.nodes} directive when a graph contains nested graphs. Shall the value contain the total number of nodes of the graph (including subgraphs) or only the number of first-level nodes? In the former case, shall a node which contain a subgraph be counted or not? In our case, we assume that the value is the number of first-level nodes.
+    \item Ditto for edges, but additional cases have to be considered: how are edges which span multiple graphs counted? We assume that we count only the number of \texttt{edge} elements directly contained by the graph.
+    \item The provided DTD fails to validate documents which contain any namespace (or \texttt{xmlns} attribute).
+    \item The provided DTD fails to validate documents which contain the \texttt{attr.*} and \texttt{parse.*} attributes.
+    \item The provided DTD specifies a different element type for the \texttt{key} element than the actual specification (\texttt{\#PCDATA} instead of a container of an optional \texttt{default} element).
+    \item It is not clear if a node can contain multiple nested graphs. The DTD forbids it, so we assume this case.
+    \item The DTD allows \texttt{graph} elements to be nested inside \texttt{edge} elements, but there is no word about it in the specification, we do not consider this case as valid.
+    \item Ditto for hyperedge.
+    \item Externally referenced graphs seem to be supported through \texttt{xlink} (the DTD explicitly validates it), but this concept is never mentioned in the specification.
+\end{enumerate}
+
+The XML schema seems to fail while validating references for edges on nested graphs. From an initial overview, the schema seems correct and this may be a bug in lxml or libxml. Both are well maintained and heavily used libraries, though. They should not present such a bug -> To investigate.
+ 
+\section{May 18, 2013}
+
+By applying a layout algorithm on 2 dimensions only, but putting every node on his proper layer, we could probably achieve a good overall crossing minimization, as nodes which would be near one to the other would be in the same vertical area.
+
+This does not allow us to use different layout algorithms for different layers, though.

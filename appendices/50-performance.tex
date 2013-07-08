@@ -1,0 +1,74 @@
+\lchapter[perf]{Performance optimization (old chapter to be removed)}
+
+\section{Introduction}
+
+When working on large graphs (order: $10^3$, size: $10^4$), the current implementation of the visualization application hits its limit concerning the fluidity of the user interaction with the whole application. While performance problems are not of primary concern when they only impact the execution time of a given action, in this case they are given more importance as the user experience is affected by the introduction of delays and freezes of the user interface.
+
+For the scope of the present analysis and subsequent optimization, we classified the calculation causing performance issues to the user interface in two distinct categories:
+
+\begin{description}
+    \item[Synchronous] These calculations are performed as a direct user input and their result is needed right away. Normally the application cannot service additional user inputs until the computation ends. These calculations cannot easily be offloaded to external computational resources as they are strongly connected to the client.\footnote{It is worth to note that it is not impossible to offload these computations, but the issues arising in doing so may outweight the advantages.}
+    \item[Asynchronous] These calculations can be executed in the background and, if needed, their results applied to the user interface asynchronously. In most cases, the data needed for these computations can be sent to another machine, the calculation performed on it, and the results returned to the client in an efficient way.
+\end{description}
+
+In the case of the visualization application, the two main resource-consuming processes are:
+
+\begin{itemize}
+    \item Rendering of nodes and edges to the screen.\\[1.5mm]
+        In the case of our application, the rendered graph has to be interactive and be able to respond to user inputs (i.e. perspective changes or options toggling) and automated actions (i.e. time-axis animation or layout updates). This task is thus clearly \textbf{synchronous}.
+
+    \item The calculation of the layout for the requested graph.\\[1.5mm]
+        In most cases, a first version of a graph can be rendered even if the layout of its nodes is not yet defined (random disposition) and then incrementally optimized as the layout engine defines the positions of the different objects. While it would be nice to have these results available as fast as possible, it is still possible to use the application for different tasks while the layout computation is executed in the background. For these reasons this task is classified as \textbf{asynchronous}.
+\end{itemize}
+
+In this chapter, we analyze these two issues more in depth and investigate different possible approaches to solve them.
+
+\todo{Chapter structure \& content description.}
+
+\section{Possible performance optimization techniques for the browser}
+
+Generic approaches
+\begin{enumerate}
+    \item Code optimization
+    \item ASM compiled JavaScript
+    \item Local parallel execution (web workers)
+    \item Offload (server, cloud, \ldots)
+    \item P2P JavaScript distribution (distributed web workers)
+    \item Browser plugins
+\end{enumerate}
+
+Domain specific approaches
+\begin{enumerate}
+    \item Image/video streaming
+    \item Multilevel rendering
+    \item Preprocessing
+    \item Coarse graining
+\end{enumerate}
+
+Some useful sources:\\
+%\url{http://www.ianww.com/blog/2012/11/04/optimizing-three-dot-js-performance-simulating-tens-of-thousands-of-independent-moving-objects/}\\
+\url{http://www.html5rocks.com/en/tutorials/webgl/shaders/}
+
+
+\section{Measuring performance}
+
+Before starting to try to resolve the encountered performance issues, we need a way to measure the initial state and the impact of subsequent optimizations to be able to judge and prove our that we have taken the right path. This point is addressed in \vref{sec:perf/measure/impl}.
+
+Additionally, we also need tools allowing us to delve into the execution flow and identify parts of code causing major performance hits. Such tools are commonly called \textit{profilers}. The current landscape of JavaScript profilers is presented in \vref{sec:perf/measure/tools}.
+
+\subsection{Benchmarking implementation}
+\label{sec:perf/measure/impl}
+
+In this section we present the implementations\footnote{These are similar in concept to an SSCE (\url{http://sscce.org/}).} on which we will run our tests on and the benchmarking infrastructure used to measure it. In order to make our results as similar as possible to a real world usage, we used the same visualization-related classes as implemented in the actual viewer code. On top of the visualization architecture we added a parametrized random graph generator (with a custom random function to guarantee repetability\footnote{The original JavaScript \texttt{Math.random} implementation does not allow to set a custom seed and we cannot thus repeat the tests on exactly the same graphs in different sessions. To overcome this issue, we used a custom implementation of the \texttt{Math.random} function which also introduces a \texttt{Math.seedrandom} function. The original source code can be found at \url{http://davidbau.com/archives/2010/01/30/random\_seeds\_coded\_hints\_and\_quintillions.html}.}) and a timer to measure the time spent in the rendering function.
+
+\subsection{Profiling tools}
+\label{sec:perf/measure/tools}
+
+\subsection{Benchmark setup}
+
+
+
+\subsection{Initial results}
+
+
+\section{Implementation}

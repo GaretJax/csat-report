@@ -16,6 +16,12 @@
 % Support for 2nd, 3rd,...
 \usepackage[super]{nth}
 
+% Text strikeout
+\usepackage[normalem]{ulem}
+
+% Support for counter formatting
+\usepackage{fmtcount}
+
 % Set the margin from the page side
 \usepackage[margin=3cm, left=3.5cm, right=3.5cm, twoside=false, marginparwidth=2.5cm, marginparsep=5mm]{geometry}
 \usepackage{lscape}
@@ -121,6 +127,19 @@
 % Support for lists
 \usepackage{etoolbox}
 \usepackage{fp}
+
+% Custom ptions
+\newtoggle{twoside}     % Insert blank pages 
+\newtoggle{listings}    % Show figure/tables/code/... listings
+\newtoggle{alttitle}    % Show alternate title page
+\newtoggle{title}       % Show title page
+\newtoggle{frontmatter} % Show the frontmatter
+\newtoggle{abstract}    % Show the abstract
+\newtoggle{toc}         % Show the table of contents
+\newtoggle{prefaces}    % Show the prefaces
+\newtoggle{content}     % Show the content
+\newtoggle{indices}     % Show the indices (acronyms, glossary,...)
+\newtoggle{appendices}  % Show the appendices
 
 % Advanced templating support
 \newcommand{\settitle}[2]{%
@@ -294,11 +313,15 @@
 
 \def\cleartoodd{%
   \clearpage%
-  \ifodd\value{page}\else\mbox{}\thispagestyle{empty}\newpage\fi%
+  \iftoggle{twoside}{%
+    \ifodd\value{page}\else\mbox{}\thispagestyle{empty}\newpage\fi%
+  }{}
 }
 
 \def\clearchap{%
-  \ifodd\value{page}\else\mbox{}\thispagestyle{empty}\fi%
+  \iftoggle{twoside}{%
+    \ifodd\value{page}\else\mbox{}\thispagestyle{empty}\fi%
+  }
 }
 
 \let\origdoublepage\cleardoublepage
@@ -306,6 +329,15 @@
   \cleartoodd%
 }
 
+\newenvironment{todos}[1]{%
+    \usection{#1}
+    \vspace{3mm}\hrule
+    \vspace{-2mm}
+	\begin{itemize}[leftmargin=0pt,itemsep=-10pt]
+	\renewcommand{\labelitemi}{$\medsquare$}
+	\def\todo{\item}
+	\def\done{\item[$\boxtimes$]}
+}{\end{itemize}}
 
 \usepackage{tocloft}
 \newcommand{\uchapter}[1]{
@@ -368,8 +400,6 @@
   \myalglisting
   \mylstlisting
 }
-
-
 
 \setlength\cftchapnumwidth{20pt}
 \renewcommand{\cftchappresnum}{\hfill}
@@ -504,3 +534,6 @@
     ($(current axis.north east)+(#1,.2cm)$);
 }
 
+% Typography shortcuts
+\newcommand\ie{i.e.\ }
+\newcommand\eg{e.g.\ }

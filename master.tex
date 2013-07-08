@@ -5,48 +5,87 @@
 \settitle{Project title}{Project subtitle}
 \addauthor{Jonathan Stoppani}
 
+% Compilation options
+%\toggletrue{twoside}
+%\toggletrue{alttitle}
+%\toggletrue{title}
+%\toggletrue{frontmatter}
+%\toggletrue{abstract}
+\toggletrue{toc}
+%\toggletrue{listings}
+%\toggletrue{prefaces}
+\toggletrue{content}
+\toggletrue{indices}
+\toggletrue{appendices}
+
 \input{headers-footers}
 
 \begin{document}
   % Title page
-  %\includepdf[pages=-,pagecommand={\thispagestyle{empty}},scale=1]{images/mse-front.pdf}
-  %\null\newpage
-  \input{title}
-  \null\newpage
+  \iftoggle{alttitle}{%
+    \includepdf[pages=-,pagecommand={\thispagestyle{empty}},scale=1]{images/mse-front.pdf}
+    \null\newpage
+  }{}
+
+  \iftoggle{title}{%
+    \input{title}
+    \iftoggle{twoside}{\null\newpage}{}
+  }{}
 
   % Front matter
   \pagestyle{front}
   \pagenumbering{roman}
-  \input{frontmatter}
+  \iftoggle{frontmatter}{%
+    \input{frontmatter}
+  }{}
 
-  \clearchap
-  \input{abstract}
+  \iftoggle{abstract}{%
+    \clearchap
+    \input{abstract}
+    \cleartoodd
+  }{}
 
   % Table of contents
-  \cleartoodd
   \begin{adjustwidth}{-\cftsecnumwidth}{0cm}
-  	\pagestyle{front}
-	\renewcommand*\contentsname{\hspace{15pt}Contents}
-	\tableofcontents
-
-	\mylistings
+    \iftoggle{toc}{%
+      \pagestyle{front}
+      \renewcommand*\contentsname{\hspace{15pt}Contents}
+      \tableofcontents
+    }\\
+    \iftoggle{listings}{\mylistings}{}
 	
   \end{adjustwidth}
 
-  % Prefaces automatic inclusion (abstract,...)
-  \includescript{scripts/include-content.py prefaces}
-  \cleartoodd
+  % Prefaces automatic inclusion
+  \iftoggle{prefaces}{%
+    \includescript{scripts/include-content.py prefaces}
+    \cleartoodd
+  }{
+    \cleartoodd
+  }
 
   % Main content automatic inclusion
-  \clearchap
-  \pagestyle{main}
-  \pagenumbering{arabic}
-  \includescript{scripts/include-content.py content}
+  \iftoggle{content}{%
+    \clearchap
+    \pagestyle{main}
+    \pagenumbering{arabic}
+    \includescript{scripts/include-content.py content}
+  }{
+    \pagestyle{main}
+    \pagenumbering{arabic}
+  }
+
+  % Indices automatic inclusion
+  \iftoggle{indices}{%
+    \includescript{scripts/include-content.py indices}
+  }{}
 
   % Appendices automatic inclusion
-  \appendix
-  \labelformat{chapter}{appendix~#1}
-  \labelformat{section}{subappendix~#1}
-  \labelformat{subsection}{subappendix~#1}
-  \includescript{scripts/include-content.py appendices}
+  \iftoggle{appendices}{%
+    \appendix
+    \labelformat{chapter}{appendix~#1}
+    \labelformat{section}{subappendix~#1}
+    \labelformat{subsection}{subappendix~#1}
+    \includescript{scripts/include-content.py appendices}
+  }{}
 \end{document}

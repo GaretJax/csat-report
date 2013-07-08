@@ -13,3 +13,7 @@
 %  text=xxx,
 %  description={\protect\xxx}
 %}
+
+% List of terms to define and reference in the text
+% -------------------------------------------------
+% source code repository
