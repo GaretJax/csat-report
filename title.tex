@@ -1,12 +1,15 @@
 \begin{titlepage}
+\AddToShipoutPicture*{\BackgroundPic}
 \thispagestyle{empty}
 
-\vspace*{10mm}
-\includegraphics{images/logo_mse}
+\vspace*{1mm}
+\includegraphics[height=6mm]{images/logo_mse}
+\hfill
+\includegraphics[height=6mm]{images/logo-mit}
 \vspace{5mm}
 
 \newsavebox{\maintitle}
-\savebox{\maintitle}{\Huge \doctitle}
+\savebox{\maintitle}{\Huge\justifying\doctitle\par}
 
 \newlength{\titlew}
 \settowidth{\titlew}{\usebox{\maintitle}}
@@ -14,32 +17,25 @@
 
 \hrule
 \vspace{0.2mm}
-\usebox\maintitle
-\vspace{4mm}
+{\Huge\justifying\doctitle\linebreak\par}
+\vspace{-5.5mm}
 \hrule
-\begin{minipage}[t]{\titlew}
+\hspace{0.6mm}\begin{minipage}[t]{0.993\textwidth}
   \begin{spacing}{1.1}
     \large \subtitle
   \end{spacing}
 \end{minipage}
-\vspace{100mm}
+\vspace{5mm}
+\vfill
 
-\hrule
-\vspace{-1mm}
-\begin{minipage}[t]{0.5\textwidth}
-    \begin{flushleft}
-        Jonathan Stoppani\\[1.5mm]
-        \today
-    \end{flushleft}
-\end{minipage}%
-\begin{minipage}[t]{0.5\textwidth}
-	\begin{flushright}
-	  \emph{Supervisors}\hspace{2.5mm} Prof. Olivier L. de Weck\\[1.5mm]
-	  Prof. Pierre Kuonen
-    \end{flushright}
-\end{minipage}
-\vspace{3.5mm}
-\hrule
+Jonathan Stoppani\\[1.5mm]
+\today
 
+\vfill
 
+\emph{Supervisors}\\[2mm]
+Prof. Olivier L. de Weck\\[1.5mm]
+Prof. Pierre Kuonen
+
+\vspace{115mm}
 \end{titlepage}

@@ -72,7 +72,7 @@ The previous subsection illustrated the high-level components of the acquisition
 
 \begin{figure}[p]
   \begin{adjustwidth}{-2.2cm}{-1.5cm}
-  \includegraphics[width=\linewidth]{images/uc-acquisition}
+  \includegraphics[width=\linewidth]{images/diagrams/uc-acquisition}
   \end{adjustwidth}
 
   \caption[Use case diagram for the data acquisition web application.]{Use case diagram for the data acquisition web application.}
@@ -115,14 +115,14 @@ As anticipated in the previous paragraphs, the collectors themselves, grouped un
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=0.75\linewidth]{images/uc-server}
+  \includegraphics[width=0.75\linewidth]{images/diagrams/uc-server}
   \caption[Use case diagram for the acquisition server.]{Use case diagram from the point of view of the acquisition server.}
   \label{fig:uc-server}
 \end{figure}
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=0.67\linewidth]{images/uc-collector}
+  \includegraphics[width=0.67\linewidth]{images/diagrams/uc-collector}
   \caption[Use case diagram for the collector.]{Use case diagram from the point of view of the collector.}
   \label{fig:uc-collector}
 \end{figure}
@@ -171,7 +171,7 @@ In the next three subsections, we analyze the three subsystems in deeper detail.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.95\linewidth]{images/seq-overview}
+  \includegraphics[width=0.95\linewidth]{images/diagrams/seq-overview}
   \caption[Overview of the mapping of the use cases to the sequence diagrams.]{Overview of the mapping of the use cases to the sequence diagrams. Use cases highlighted with a thicker border are represented in more detail in additional sequence diagrams.}
   \label{fig:seq-overview}
 \end{figure}
@@ -246,7 +246,7 @@ Having defined that the context and the role of the web application is, we can n
 Having explained the role of each class in the package, we can now focus on their interactions and how they map to the previously introduced use cases. For this purpose, we introduce two detailed sequence diagrams: one for the \emph{Execute acquisition session} use case, in \vref{fig:seq-execute-session}, and one for the \emph{View acquisition session} use case, in \vref{fig:seq-view-session}.
 
 \begin{figure}
-  \includegraphics[height=\linewidth,angle=90,origin=c]{images/seq-execute-session}
+  \includegraphics[height=\linewidth,angle=90,origin=c]{images/diagrams/seq-execute-session}
   \caption{Sequence diagram for the \emph{Execute acquisition session} use case.}
   \label{fig:seq-execute-session}
 \end{figure}
@@ -256,7 +256,7 @@ In the first diagram, the one for the \emph{Execute acquisition session} use cas
 
 \begin{figure}
   \centering
-  \includegraphics[height=0.95\linewidth,angle=90,origin=c]{images/seq-view-session}
+  \includegraphics[height=0.95\linewidth,angle=90,origin=c]{images/diagrams/seq-view-session}
   \caption{Sequence diagram for the \emph{View acquisition session} use case.}
   \label{fig:seq-view-session}
 \end{figure}
@@ -294,15 +294,16 @@ The remaining classes, outside the \emph{Acquisition server} package, provide ge
 
 \begin{figure}
   \begin{adjustwidth}{-1mm}{5mm}
-    \includegraphics[width=\linewidth]{images/class-collector-server}
+    \includegraphics[width=\linewidth]{images/diagrams/class-collector-server}
   \end{adjustwidth}
   \caption[Class diagram for the acquisition server.]{Class diagram for the acquisition server.}
   \label{fig:class-collector-server}
+  \vspace{1cm}
 \end{figure}
 
 \begin{figure}
   \begin{adjustwidth}{-7.4mm}{-1.5cm}
-    \includegraphics[width=\linewidth]{images/seq-run-collector}
+    \includegraphics[width=\linewidth]{images/diagrams/seq-run-collector}
   \end{adjustwidth}
   \caption{Sequence diagram for the \emph{Run collector} use case.}
   \label{fig:seq-run-collector}
@@ -335,7 +336,7 @@ The role of the collector infrastructure is to provide a complete set of hooks a
 
 \begin{figure}[p] 
   \centering
-  \includegraphics[height=0.93\linewidth,angle=90,origin=c]{images/class-collector}
+  \includegraphics[height=0.93\linewidth,angle=90,origin=c]{images/diagrams/class-collector}
   \caption[Class diagram for the data collection infrastructure.]{Class diagram for the collector infrastructure and the web application used to manage it.}
   \label{fig:class-collector}
 \end{figure}
@@ -345,7 +346,7 @@ The sequence diagram presented in \vref{fig:seq-execute-collector} illustrates h
 
 \begin{figure}
   \begin{adjustwidth}{-11.6mm}{-2cm}
-    \includegraphics[width=\linewidth]{images/seq-execute-collector}
+    \includegraphics[width=\linewidth]{images/diagrams/seq-execute-collector}
   \end{adjustwidth}
   \caption{Sequence diagram for the \emph{Execute collector} use case.}
   \label{fig:seq-execute-collector}

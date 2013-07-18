@@ -26,6 +26,7 @@
 \usepackage[margin=3cm, left=3.5cm, right=3.5cm, twoside=false, marginparwidth=2.5cm, marginparsep=5mm]{geometry}
 \usepackage{lscape}
 \usepackage{pdflscape}
+\usepackage{afterpage}
 \usepackage[strict]{changepage}
 
 % Call original TeX \input to avoid conflicts
@@ -140,6 +141,7 @@
 \newtoggle{content}     % Show the content
 \newtoggle{indices}     % Show the indices (acronyms, glossary,...)
 \newtoggle{appendices}  % Show the appendices
+\newtoggle{layout}      % Show layout margins
 
 % Advanced templating support
 \newcommand{\settitle}[2]{%
@@ -231,7 +233,7 @@
 
 
 % Enable code listings and set default options
-\usepackage{listings}
+\usepackage[final]{listings}
 \usepackage{courier} % Use Adobe Courier instead of Computer Modern Typewriter
                      % for monospaced text
 
@@ -274,6 +276,9 @@
 	showstringspaces=false,
 	belowcaptionskip=2mm,
 }
+
+\usepackage{ragged2e}
+
 
 % TODO: Create macros for lstlisting with or without line numbers
 
@@ -321,7 +326,7 @@
 \def\clearchap{%
   \iftoggle{twoside}{%
     \ifodd\value{page}\else\mbox{}\thispagestyle{empty}\fi%
-  }
+  }{}
 }
 
 \let\origdoublepage\cleardoublepage
@@ -478,7 +483,7 @@
 	margin={0cm,2cm},
 }
 \captionsetup[subfigure]{
-	format=listing,
+	format=hang,
 	font={scriptsize},
 	singlelinecheck=true,
 	margin=0cm,
@@ -497,6 +502,7 @@
 % Color definitions
 \definecolor{highlightyellow}{RGB}{255,255,140}
 \definecolor{mselogogray}{RGB}{96,101,109} % Color definition for the MSE logo
+%\definecolor{verylightgray}{RGB}{240,240,240}=
 \definecolor{verylightgray}{RGB}{240,240,240}
 
 % Enable highlighting using \HighlightFrom and \HighlightTo
@@ -537,3 +543,43 @@
 % Typography shortcuts
 \newcommand\ie{i.e.\ }
 \newcommand\eg{e.g.\ }
+
+\newenvironment{a3page}{%
+  \cleartoodd
+  \pdfpagewidth=2\pdfpagewidth
+  \changepage{}{\textwidth}{}{}{}{}{}{}{}
+  \changepage{}{7cm}{}{}{}{}{}{}{}
+  \setlength{\headwidth}{\textwidth}
+}{
+  \cleartoodd
+}
+
+\newenvironment{landscapepage}{%
+  \clearpage
+  \newlength{\origwidth}
+  \setlength{\origwidth}{\pdfpagewidth}
+
+  \newlength{\origtheight}
+  \setlength{\origtheight}{\textheight}
+  \newlength{\origtwidth}
+  \setlength{\origtwidth}{\textwidth}
+
+  \pdfpagewidth=\pdfpageheight
+  \pdfpageheight=\origwidth
+
+  \changepage{-\textheight}{-\textwidth}{}{}{}{}{}{}{}
+  \changepage{\origtwidth}{\origtheight}{}{}{}{}{}{}{}
+  %\changepage{}{7cm}{}{}{}{}{}{}{}
+}{
+  \clearpage
+}
+
+\AtBeginDocument{\iftoggle{layout}{
+  \usepackage{showframe}
+  \renewcommand*\ShowFrameColor{\color{lightgray}}
+  \renewcommand*\ShowFrameLinethickness{.3pt}
+}{}}
+
+\newlength{\w}
+\newlength{\h}
+

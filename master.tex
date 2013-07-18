@@ -2,23 +2,33 @@
 
 \input{preamble}
 
-\settitle{Project title}{Project subtitle}
+\settitle{Complex Systems Visualization Toolkit}{A framework and a web application to collect and visualize complex systems modeled as multi-domain networks}
 \addauthor{Jonathan Stoppani}
 
 % Compilation options
 %\toggletrue{twoside}
 %\toggletrue{alttitle}
-%\toggletrue{title}
+\toggletrue{title}
 %\toggletrue{frontmatter}
 %\toggletrue{abstract}
 \toggletrue{toc}
 %\toggletrue{listings}
 %\toggletrue{prefaces}
+%\toggletrue{layout}
 \toggletrue{content}
-\toggletrue{indices}
-\toggletrue{appendices}
+%\toggletrue{indices}
+%\toggletrue{appendices}
 
 \input{headers-footers}
+
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=1.2\paperwidth,%
+keepaspectratio]{images/delaunay}%
+}}}
 
 \begin{document}
   % Title page
@@ -29,13 +39,13 @@
 
   \iftoggle{title}{%
     \input{title}
-    \iftoggle{twoside}{\null\newpage}{}
+    \iftoggle{twoside}{\null\neepage}{}
   }{}
 
   % Front matter
-  \pagestyle{front}
   \pagenumbering{roman}
   \iftoggle{frontmatter}{%
+    \pagestyle{front}
     \input{frontmatter}
   }{}
 
@@ -51,7 +61,7 @@
       \pagestyle{front}
       \renewcommand*\contentsname{\hspace{15pt}Contents}
       \tableofcontents
-    }\\
+    }{}
     \iftoggle{listings}{\mylistings}{}
 	
   \end{adjustwidth}
