@@ -1,0 +1,8 @@
+2013-07-18 11:34:11,932 - ERROR - stderr - Traceback (most recent call last): (/Users/garetjax/Projects/pytex/pytex/logging.py:88)
+2013-07-18 11:34:11,932 - ERROR - stderr -   File "/Users/garetjax/.virtualenvs/csat-django/bin/pytex", line 9, in <module> (/Users/garetjax/Projects/pytex/pytex/logging.py:88)
+2013-07-18 11:34:11,932 - ERROR - stderr -     load_entry_point('pytex==0.1a', 'console_scripts', 'pytex')() (/Users/garetjax/Projects/pytex/pytex/logging.py:88)
+2013-07-18 11:34:11,932 - ERROR - stderr -   File "/Users/garetjax/Projects/pytex/pytex/scripts/pytex.py", line 49, in main (/Users/garetjax/Projects/pytex/pytex/logging.py:88)
+2013-07-18 11:34:11,932 - ERROR - stderr -     res = args.command.execute(args) (/Users/garetjax/Projects/pytex/pytex/logging.py:88)
+2013-07-18 11:34:11,932 - ERROR - stderr -   File "/Users/garetjax/Projects/pytex/pytex/commands/typesetting.py", line 35, in execute (/Users/garetjax/Projects/pytex/pytex/logging.py:88)
+2013-07-18 11:34:11,932 - ERROR - stderr -     ignored.add() (/Users/garetjax/Projects/pytex/pytex/logging.py:88)
+2013-07-18 11:34:11,932 - ERROR - stderr - TypeError: add() takes exactly one argument (0 given) (/Users/garetjax/Projects/pytex/pytex/logging.py:88)

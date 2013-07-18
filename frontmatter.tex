@@ -8,7 +8,7 @@
 \begin{tabularx}{\linewidth}{ @{}>{\itshape\raggedleft}p{2.1cm}@{{\itshape:}\hspace{3mm}} X }
 Reference       & csat-report           \tabularnewline[1mm]
 Version         & \includescript{git tag | tail -1}                   \tabularnewline[1mm]
-Status          & Stub                  \tabularnewline[1mm]
+Status          & Draft                  \tabularnewline[1mm]
 Issued on       & \today                \tabularnewline[1mm]
 Author(s)       & \authorslist          \tabularnewline[1mm]
 Owner           & Jonathan Stoppani     \tabularnewline[1mm]
@@ -25,7 +25,7 @@ Address  & Jonathan Stoppani                    \newline
            Building E40-231                     \newline
            Cambridge, MA 02139                  \newline
            USA                                  \tabularnewline[1mm]
-Phone    & +1 781 308 5676                      \tabularnewline[1mm]
+           Phone    & +1 781 308 5676 \hspace{1mm}$\cdot$\hspace{1mm} +41 79 229 39 88                      \tabularnewline[1mm]
 Email    & \email{jonathan@stoppani.name}       \tabularnewline[1mm]
 Web      & \url{http://jonathan.stoppani.name}  \tabularnewline[1mm]
 \end{tabularx}
@@ -38,15 +38,19 @@ Signature & \hrule \tabularnewline[1mm]
 \end{tabularx}
 
 
-\subsection*{Document history}
+%\subsection*{Document history}
+%
+%\begin{tabularx}{\linewidth}{ l | l | X }
+%\toprule
+%\textbf{Date} & \textbf{Issuer} & \textbf{Comment} \tabularnewline
+%\midrule
+%\includescript{pytex versions -l}
+%\bottomrule
+%\end{tabularx}
 
-\begin{tabularx}{\linewidth}{ l | l | X }
-\toprule
-\textbf{Date} & \textbf{Issuer} & \textbf{Comment} \tabularnewline
-\midrule
-\includescript{pytex versions -l}
-\bottomrule
-\end{tabularx}
+\vfill
+
+The image included on the cover page is a Delaunay triangulation of 2000 random points, resulting in a graph with 5971 edges, and then laid out using the 3D version of the Fruchterman-Reingold algorithm.
 
 \vfill
 
@@ -56,3 +60,15 @@ All rights reserved. No part of this document may be reproduced, stored in a ret
 
 \restoregeometry
 \end{otherlanguage} 
+
+\cleartoodd
+\thispagestyle{empty}
+
+\newgeometry{left=5.5cm}
+
+\vspace*{7cm}
+
+A Mamma e Papà, per avermi sempre sostenuto e accettato ciecamente le mie scelte.
+
+\restoregeometry
+

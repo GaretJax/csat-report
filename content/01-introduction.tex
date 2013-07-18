@@ -1,6 +1,95 @@
 \lchapter[intro]{Introduction}
-\section{Problematics}
-\section{Engineering systems and software}
+
+\section{Complex engineering systems}
+
+\p{Complex systems}
+A complex system is a system composed of many heterogeneous connected entities that as a whole present a behavior which cannot be predicted by studying the single entities only. Normally, a complex system, is composed by a large number of entities (in the order of at least 1 × 103). According to Weaver [83], complex systems can be categorized into disorganized complexity and organized complexity. The first category is used to refer to very large but easy to understand systems, for which answers to particular questions can be given with high precision. The second category is used to refer to systems presenting an emerging behavior which cannot be analyzed with the same statistical tools used to answer questions about disorganized systems.
+
+\p{Complex engineering systems}
+Engineering systems are a class of systems characterized by a high degree of technical complex- ity, social intricacy, and elaborate processes, aimed at fulfilling important functions in society [24]. When an engineering system is complex enough to meet the definition of a complex sys- tem, that is, for example, when many engineers contribute to a project with many components, we can classify it as a complex engineering system.
+
+\p{Graph modeling}
+According to Alfaris et al. [2], de Weck et al. [24], and Pasqual and de Weck [69], such complex systems can be understood as a set of tightly coupled layered subsystems. This decomposition can then be represented as a multilayer graph, where vertices represent entities (components, engineers, resources, processes,...) and edges represent interactions between these entities. Entities belonging to the same category are placed on the same layer. Figure 1.1 contains an example of such a modeling. Subfigure 1.1a shows the energy-related interdependencies for a city. Subfigure 1.1b shows a sample energy configuration with the different layers placed over the city’s map [1].
+
+\begin{figure}[!h]
+\begin{adjustwidth}{0cm}{0cm}
+  	\subfloat[Energy-related interdependencies]{
+		\label{fig:citynet-energy}
+		\includegraphics[width=.315\linewidth]{images/citynet-energy}
+	}
+	\hspace{1.7cm}
+	\subfloat[Sample energy configuration]{
+		\label{fig:citynet-layers}
+		\includegraphics[width=.38\linewidth]{images/citynet-layers}
+	}
+	\caption[Example energy-related interdependencies for a city and a 3-D rendering superposed to an actual map.]{Example energy-related interdependencies for a city and a 3-D rendering superposed to an actual map. Source: \cite{citynet}.}
+	\label{fig:citynet}
+\end{adjustwidth}
+\end{figure}
+
+\section{Data collection}
+
+\p{Tangible systems}
+The process of modeling, visualizing, and analyzing any type of system, whether complex or not, presupposes the availability of the data set describing the system itself, and optionally, the processes evolving around its evolution. When modeling tangible systems such as aircrafts or cities, the data collection process becomes rapidly very onerous and imprecise.
+
+\p{Intangible systems}
+On the other hand, when the system under exam is intangible and essentially composed by information, it is possible to process it automatically and obtain more precise information in much less time. The typical example of such a system is a software code. Additionally, different tools are already used in the industry to collect additional data about the processes contributing to its development, as for example bug trackers, wikis, or email communication.
+
+\p{Open source software}
+Another particularity of the software world is the open source software (OSS) movement. As software is developed by many people around the world, not only the source code is freely available for inspection, but so is the information contained in the tools that the developers use to facilitate the sharing of their contributions with the community.
+
+\p{Using software as a proxy system}
+By choosing to focus our analysis on complex software projects, we greatly facilitate the data collection and processing tasks, and can concentrate our efforts on the core problem. We assume that when data about a different (tangible) system becomes available, the very same process can be used to analyze it as well.
+
+\section{Graph visualization}
+
+\todo{References}
+
+\p{Graph visualization}
+A widespread problematic when working with graphs is how to automatically lay them out to be visualized for consumption by human beings, i.e., deciding which vertex has which position, and how the lines representing edges are drawn. Different types of graphs may need different drawing conventions, and different users may like to emphasize different aspects of the data. Many approaches and many solutions exist to this problem.
+
+\p{Complex systems visualization}
+By modeling complex systems using multi-domain networks, we can exploit the extensive academic background in graph drawing to visualize complex systems. Different graph visualization applications and libraries exists, but none of them are specifically oriented towards the visualization of multi-domain networks. Different graph visualization applications exploiting these layout algorithms already exist, but because they are using layout algorithms as their building blocks, built-in support for multi-domain data is absent from all of them.
+
 \section{Project goals}
+
+\p{Goal of the project}
+The goal of this project is to provide an approach, software architecture and software code to visualize any complex system modeled using a multi-domain network. The final intended result is an easy to use, portable, and extensible application specifically oriented towards multi-domain datasets.
+
+\p{Analysis of open source software}
+As stated in the preceding sections, the collection of data about a given system can be a cumbersome task. To facilitate the aggregation of different data sets to be able to test and evaluate the application, we decided to focus our analysis on open source software projects. As consequence of this decision, the application to be developed shall support an easy way to gather data about a given software project in an automated and extensible fashion.
+
+\p{Layout algorithms}
+Additionally, as part of the visualization application, we will have to research and implement different layout algorithms (or techniques based on them) to place the nodes of a multi-domain network on a surface or in space in an appropriate way and by considering the intrinsic nature of the modeled system.
+
 \section{Context}
+
+This work is carried out at the MIT during the spring semester 2013 and is valid as Master Thesis for the accomplishment of the regular master course for Master of Science in Engineering, major in Information and Communication Technologies, at HES-SO//Master.
+
+This project is heavily based on the \emph{Graph Visualization Optimization} semester project carried out during the previous term at Ecole d'Ingnieurs et d'Architectes Fribourg (EIA-FR).
+
+Prof. Pierre Kuonen of the College of Engineering and Architecture of Fribourg, Switzerland, is the project supervisor. Prof. Olivier L. de Weck, Associate Professor of Aeronautics and Astronautics and Engineering Systems at MIT, USA, is the assigned expert for the project.
+
 \section{Structure of this document}
+
+This document is structured in five chapters as follows:
+
+\begin{itemize}
+  \item \Ref*{sec:intro} is the global introduction to the report.
+  \item \Vref*{sec:case} is presents the initial case study and contains an overview of the state of the art and the adopted overall system architecture.
+  \item \Vref*{sec:acquisition} focuses on the data acquisition framework developed as part of the project.
+  \item \Vref*{sec:visu} is the main chapter of the report and focuses on the data visualization web application.
+  \item \Vref*{sec:conclusions} contains the conclusions to the report.
+\end{itemize}
+
+Additionally, X appendices are available to provide additional content. They are structured as follows:
+
+\begin{itemize}
+  \item \todo{Appendices count and content}
+\end{itemize}
+
+
+
+
+
+

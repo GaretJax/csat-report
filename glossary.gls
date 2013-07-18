@@ -1,3 +1,45 @@
+\newacronym{csat}{CSAT}{Complex Systems (Software) Analysis Toolkit}
+\newacronym{voip}{VoIP}{Voice Over IP}
+\newacronym{irc}{IRC}{Internet Relay Chat}
+\newacronym{xmpp}{XMPP}{Extensible Messaging and Presence Protocol}
+\newacronym{gui}{GUI}{Graphical User Interface}
+\newacronym{uc}{UC}{Use Case}
+\newacronym{crud}{CRUD}{Create, Retrieve, Update, Delete}
+\newacronym{mvc}{MVC}{Model View Controller}
+\newacronym{mvt}{MVT}{Model View Template}
+\newacronym{html}{HTML}{HyperText Markup Language}
+\newacronym{orm}{ORM}{Object Relational Mapper}
+\newacronym{url}{URL}{Uniform Resource Locator}
+\newacronym{json}{JSON}{JavaScript Object Notation}
+\newacronym{rpc}{RPC}{Remote Procedure Call}
+\newacronym{tcp}{TCP}{Transport Control Portocol}
+\newacronym{tty}{TTY}{TeleTypeWriter}
+\newacronym{ssl}{SSL}{Secure Socket Layer}
+\newacronym{oss}{OSS}{Open Source Software}
+\newacronym{eiafr}{EIA-FR}{}
+\newacronym{mit}{MIT}{}
+\newacronym{sql}{SQL}{Standard Query Language}
+\newacronym{http}{HTTP}{HyperText Transport Protocol}
+\newacronym{id}{ID}{Identificator}
+\newacronym{xml}{XML}{Extensible Markup Language}
+\newacronym{api}{API}{Application Programming Interface}
+\newacronym{xsl}{XSL}{Extensible Stylesheet Language}
+\newacronym{gexf}{GEXF}{}
+\newacronym{uuid}{UUID}{Universally Unique Identifier}
+\newacronym{fps}{FPS}{Frames Per Second}
+\newacronym{dtd}{DTD}{Document Type Declaration}
+\newacronym{ssce}{SSCCE}{Short, Self Contained, Correct (Compilable), Example}
+\newacronym{utf}{UTF}{UCS Transformation Format}
+\newacronym{cpu}{CPU}{Central Processing Unit}
+\newacronym{gpu}{GPU}{Graphics Processing Unit}
+\newacronym{ui}{UI}{User Interface}
+\newacronym{ram}{RAM}{Random Access Memory}
+\newacronym{pop3}{POP3}{Post Office Protocol, version 3}
+\newacronym{imap}{IMAP}{Internet Message Access Protocol}
+%\newacronym{}{}{}
+
+
+
 %\newglossaryentry{xxx}{
 %  type=xxx,
 %  name=xxx,

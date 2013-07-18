@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,twoside,onecolumn,english]{report}
+\documentclass[10pt,a4paper,twoside,onecolumn,english,draft]{report}
 
 \input{preamble}
 
@@ -6,17 +6,17 @@
 \addauthor{Jonathan Stoppani}
 
 % Compilation options
-%\toggletrue{twoside}
+\toggletrue{twoside}
 %\toggletrue{alttitle}
 \toggletrue{title}
-%\toggletrue{frontmatter}
-%\toggletrue{abstract}
+\toggletrue{frontmatter}
+\toggletrue{abstract}
 \toggletrue{toc}
-%\toggletrue{listings}
+\toggletrue{listings}
 %\toggletrue{prefaces}
 %\toggletrue{layout}
 \toggletrue{content}
-%\toggletrue{indices}
+\toggletrue{indices}
 %\toggletrue{appendices}
 
 \input{headers-footers}
@@ -39,7 +39,7 @@ keepaspectratio]{images/delaunay}%
 
   \iftoggle{title}{%
     \input{title}
-    \iftoggle{twoside}{\null\neepage}{}
+    \iftoggle{twoside}{\null\newpage}{}
   }{}
 
   % Front matter
