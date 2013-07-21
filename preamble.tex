@@ -1,3 +1,5 @@
+\usepackage{morewrites}
+
 \usepackage{babel}
 
 % Use UTF-8 for plain tex files
@@ -72,7 +74,7 @@
 % Set line height multiplicity
 \linespread{1.05}
 
-% Allow URL typesetting
+% Allow \gls{url} typesetting
 \usepackage{url}
 
 % Allow email typesetting
@@ -112,12 +114,12 @@
 \usepackage{appendix}
 
 % Enable the creation of glossaries
-\usepackage[nomain,acronym]{glossaries}
+\usepackage[nomain,section,acronym]{glossaries}
 \usepackage{glossary-inline}
 \renewcommand*{\glsautoprefix}{glo:}
 \renewcommand*{\glspostdescription}{ }
 
-%\newglossary{main}{0.gls}{0.glo}{Glossary}
+\newglossary{main}{0.gls}{0.glo}{Glossary}
 \newglossary{concepts/general}{1.gls}{1.glo}{General concepts}
 \newglossary{concepts/classification}{2.gls}{2.glo}{Graph classifications}
 \newglossary{concepts/geometry}{3.gls}{3.glo}{Geometry concepts}
@@ -295,7 +297,7 @@
 % http://www.tex.ac.uk/cgi-bin/texfaq2html?label=ftnsect
 \usepackage[stable]{footmisc}
 
-% Limit the TOC dept to sections and subsections
+% Limit the \gls{toc} dept to sections and subsections
 \setcounter{tocdepth}{1}
 \setcounter{secnumdepth}{3}
 
@@ -374,17 +376,17 @@
 \makeatletter
 \newcommand\myfiglisting{%
   \cleartoodd
-  \chapter*{\hspace{15pt}List of Figures}%
+  \chapter*{List of Figures}%
   \@starttoc{lof}
 }
 \newcommand\mytablisting{%
   \cleartoodd
-  \chapter*{\hspace{15pt}List of Tables}%
+  \chapter*{List of Tables}%
   \@starttoc{lot}
 }
 \newcommand\mylstlisting{%
   \cleartoodd
-  \chapter*{\hspace{15pt}List of Source Code Listings}%
+  \chapter*{List of Source Code Listings}%
   \let\my@chapter\@chapter
   \renewcommand*{\@chapter}{%
   \addtocontents{lol}{\protect\addvspace{10pt}}%
@@ -395,7 +397,7 @@
 
 \newcommand\myalglisting{%
   \cleartoodd
-  \renewcommand{\listalgorithmname}{\hspace{15pt}List of Algorithms}
+  \renewcommand{\listalgorithmname}{List of Algorithms}
   \listofalgorithms
 }
 
@@ -504,6 +506,7 @@
 \definecolor{mselogogray}{RGB}{96,101,109} % Color definition for the MSE logo
 %\definecolor{verylightgray}{RGB}{240,240,240}=
 \definecolor{verylightgray}{RGB}{240,240,240}
+\definecolor{notegray}{HTML}{444444}
 
 % Enable highlighting using \HighlightFrom and \HighlightTo
 \usepackage{classes/highlighter}
@@ -520,6 +523,28 @@
 	{\color{lightgray} \rule[13.5pt]{\linewidth}{.5pt}}\vspace{-13.5pt}
 	\textbf{TODO} \hspace{3pt} #1\\[-6pt]
 	{\color{lightgray} \rule{\linewidth}{.5pt}}%
+}
+
+\usepackage{mdframed}
+
+\newmdenv[
+  linecolor=black,
+  frametitlebackgroundcolor=verylightgray,
+  frametitlerule=true,
+  frametitleaboveskip=2mm,
+  frametitlebelowskip=2mm,
+  innerrightmargin=2mm,
+  innerleftmargin=2mm,
+  innerbottommargin=2mm,
+  innertopmargin=7.5mm,
+  linewidth=0.2mm,
+  frametitlerulewidth=0.2mm,
+]{noteframe}
+
+\newcommand{\note}[1]{
+  \begin{noteframe}[frametitle={Note}]
+    #1
+  \end{noteframe}
 }
 
 \newcommand{\stodo}[1]{\reversemarginpar\hspace{0pt}\marginnote{\sffamily\scriptsize%
@@ -539,6 +564,9 @@
     \path ($(current axis.south west)-(#1,#2)$) rectangle 
     ($(current axis.north east)+(#1,.2cm)$);
 }
+
+\graphicspath{ {./images/} }
+\graphicspath{ {./images/diagrams/} }
 
 % Typography shortcuts
 \newcommand\ie{i.e.\ }

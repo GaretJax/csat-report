@@ -4,6 +4,12 @@
 
 \begin{adjustwidth}{0cm}{0cm}
 
-    \todo{Write abstract}
+  \emph{Engineering systems} are a class of systems characterized by a high degree of technical complexity, social intricacy, and elaborate processes, aimed at fulfilling important functions in society \cite{complex}. When an \emph{engineering system} is complex enough to meet the definition of complex system, we can classify it as a \emph{complex engineering system}. According to different sources \cite{decomp,complex,change-prop}, such complex systems can be understood as a set of tightly coupled layered subsystems. This decomposition can then be represented as a multi-domain graph, where vertices represent entities and edges represent interactions between these entities.
+
+  We provide an implementation of a web application able to visualize such multi-domain graphs, running in a web browser without any additional plugin. We successfully visualized graphs in the order of at least $10^6$ nodes. The graphs can be rendered in \gls{3d} and are completely interactive.
+
+In order to enable the use of standard layout algorithms to lay out multi-domain graphs, we present a model exploiting the newly introduced concept of \emph{Layout Strategy}. The model is complemented by three different strategy implementations targeting different types of graphs. Notably, thanks to a customization applicable to any force directed layout, we implement a function allowing to set the trade off between inter-domain or intra-domain layout quality.
+
+To complete the visualization application, we provide a \emph{data collection framework} which is able to collect data about software projects by aggregating information coming from sources like mailing lists, issue tracking systems, or source code version control systems. As part of the implementation, we provide six different collectors, among which a static Python dependency analyzer, a Github relationships collector, and a mailing lists archive analyzer.
 
 \end{adjustwidth}

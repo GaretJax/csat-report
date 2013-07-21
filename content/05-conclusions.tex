@@ -2,12 +2,95 @@
 
 \section{Introduction}
 
+\p{Introduction}
+Almost six months have passed since when the first the first research steps and interviews to define the project statement were made. During this time a whole web-based application to visualize complex systems as \gls{3d} graphs was developed. The implemented features cover a great deal of the visualization necessities, but the application is far from complete.
+
+\p{Structure of the chapter}
+In this last chapter we draw the conclusions of the project by summarizing the achievements, illustrating the solved problems, hinting at some possible future developments and finally giving commenting on the entire experience from a personal point of view. This chapter is thus structured as follows:
+
+\begin{itemize}
+	\item \Ref*{sec:results} summarizes the project output by highlighting the initial goals and comparing them to the final results.
+	\item \Ref*{sec:problems} lists some of the most important encountered problems, the solutions eventually found for them and the impact they had on the project itself.
+	\item \Ref*{sec:future} gives a list of hints for future work by summarizing what was already done for single sections in the project and adds additional items highlighting other possible improvements.
+	\item Finally, \ref*{sec:experience}, gives a personal overview and digest of the whole experience, speaking about the project itself and its execution context.
+\end{itemize}
+
 \section{Achieved results}
+\label{sec:results}
+
+\p{Case study}
+In \vref{sec:case} we researched the state of the art concerning graph visualization applications. We found that different options to visualize and analyze graphs already exist, and that some of them are good solutions. On the other hand, we were not able to find an application specifically oriented or explicitly supporting multi-domain graphs. For this and other reasons, we decided to develop a web application to visualize complex systems.
+
+\p{Data acquisition framework}
+Having decided to focus our efforts on open-source software as complex system subject, we defined what we called the \emph{Data acquisition framework}, described in \vref{sec:acquisition}. The result is a complete framework to collect and aggregate data from different sources available over the Internet, such a mailing lists or issue trackers. We took particular care to design the framework in order to be extensible, so that additional data collectors can be easily integrated at a later point in time. A special component, called \emph{Acquisition server} is provided to orchestrate the execution of different collectors as part of a single \emph{Acquisition session}.
+
+\p{Visualization application}
+Once solved the data sourcing problem, we were ready to start with the core of the project, the \emph{Visualization application} discussed in \vref{sec:visu}. This web application is able to visualize graphs and execute normal layout algorithms by means of what we called \emph{strategies}. It completely runs in a web browser and is able to render graphs in \gls{3d}. By taking advantage of the \gls{gpu} acceleration, it is possible to visualize graphs in the order of $10^5$ by maintaining a frame rate over 30 FPS. Large graphs are supported as well and should pose no problems (animation fluidity apart).
+
+\p{Goal achievement}
+In the introduction, on page \pageref{sec:intro/goals}, we stated the following ultimate goal:
+
+\begin{quote}
+The goal of this project is to provide an approach, software architecture and software code to visualize any complex system modeled using a multi-domain network. The final intended result is an easy to use, portable, and extensible application specifically oriented towards multi-domain datasets.
+\end{quote}
+
+The resulting application is able to both generate data from various sources around the Internet and successively visualizing them in an appropriate way. Globally, we can say that the application fulfills the goal, but a lot has still to be done to make the quality of the resulting visualizations really useful for larger (cluttered) graphs. In \vref{sec:future} we will discuss more in detail what can be done to optimize this aspect.
 
 \section{Encountered problems}
+\label{sec:problems}
+
+Different aspects of the project presented some type of challenge, from the subject itself to the decision to develop an application running in a plain web browser. The following non-exhaustive list summarizes the most important points:
+
+\begin{itemize}
+  \item The first encountered problem was defining the needs of the visualization application. By not knowing much about complex systems, it was difficult to judge what a good output is, what could be done better and what insights we can get from the data. This problem was partially solved by re-focusing the project on the analysis of open-source software projects (which solved the data sourcing problem as well).
+  \item A second problem, which we encountered once started implementing the visualization application, is the fact that it is difficult to automatically test JavaScript code when it normally runs in a browser and uses the WebGL \gls{api}. While we did not write any unit test at all, it would have been possible to at least partially solve the problem by using tools like V8 or SpiderMonkey. In the later stages of the implementation phase, we really missed the confidence given by unit tests.
+  \item Performance bound problems were an interesting challenge to solve. Since the rendering of the first dataset, we always focused on how to implement additional features without impacting the fluidity of the different animations. While there is still a long way to go, we think that with regard to this aspect we found some great solutions. 
+  \item A still unsolved problem is how to deal with large graphs. While supported by the application, laying out such graphs often results in cluttered visualizations. There are different techniques to reduce clutter in such cases (e.g., edge bundling or coarse graining, to name a few), but we did not have the time to implement them.
+\end{itemize}
 
 \section{Future work}
-\subsection{Distributed layout algorithms}
-\subsection{Time-axis analysis}
+\label{sec:future}
+
+\p{Introduction}
+Given the wide range of feature a graph visualization application can offer, the complexity of the subject, and the limited time at our disposal, the resulting application is far from complete. The points in the following paragraphs are either important or really interesting to implement and should be considered for a future release.
+
+\p{Temporal data}
+Support for temporal analysis/visualization. Currently different collectors already include temporal data in their output, but it is discarded by the visualization layer. It would be interesting to be able to filter the graph in order to show only a temporally delimited subset of the data. Once this feature has been added, it would be easy enough to implement temporal animations, were, after having set the visualization properties, users could use the application as a sort of ``movie player'' to watch how the graph evolves over time.
+    
+\p{Graph database}
+Addition of a graph database to store data and read it from: As originally planned, the use of a graph database could add more value to the whole application, as it comes with highly specialized tools to work on the data itself. For example, a command line (or a similar, more user friendly, interface) could be included in the visualization application and used to load data directly from the database. New data added to the database could also be streamed to the visualization engine and presented to the user in near real-time. Additional persistent alteration could also be applied directly from the visualization application.
+
+\p{Collaborative visualization}
+Collaborative graph exploration utilities: More than a single user could connect to the same data source (the same graph) and act on it in different views. They could then choose to share their view with other users in the same session, either by synchronizing the complete visualization or by selecting only a subset of the  properties (e.g., only the nodes colors and edge weights). Two views could also be linked together and the actions done on one side reflected on the other.
+
+\p{Additional renderers}
+Extensible rendering API: The current renderer introduces some artifacts in order to keep the animations fluid and performant. Additional alternative renderers could use different drawing techniques to adjust this trade-off. For example, one could work on the graph with the current renderer until satisfied with the result. Once done, he could switch to an \emph{high-definition renderer} to render the final version of the graph. Such advanced renderers can include proper \gls{3d} support, textures or materials on the nodes (transparency, reflections, etc.), light sources, \ldots It is also imaginable to have such a renderer open in a different window and automatically synchronize with the main view once every couple of seconds (probably the time needed to render such a view).
+
+\p{Other possible improvements}
+In addition to the points discussed in the previous paragraph, the following non-exhaustive list contains additional items to put on the to do list. These are either trivial to add or not as important as the ones preceding ones.
+
+\begin{itemize}[nolistsep]
+  \item Extensible import/export \gls{api} to support arbitrary graph formats.
+  \item Additional layout algorithms, including \emph{remote} layouts running on one or more different machines.
+  \item More metrics about the nodes and edges in the graph and per domain, possibly with an extensible \gls{api}.
+  \item Save/restore support for the visualization state. Currently the visualization context (node positions, colors, sizes, \ldots) is lost as soon as the user leaves the page.  
+  \item Support for edge bundling.
+  \item Support for hierarchical graphs (beyond the first level dedicated to hold domains).
+  \item Support for animations and video recording of a given visualization.
+  \item Manually orderable layers for layouts supporting it (e.g., the \emph{Stacked} layout).
+  \item Edge weight support in the visualization and additional display settings.
+  \item Selectable edges in order to display their properties.
+  \item Possibility to show/hide nodes belonging to selected domains.
+\end{itemize}
 
 \section{Personal experience}
+\label{sec:experience}
+
+\p{Experience}
+This master thesis is the second project I\footnote{Oh yes, in this last section I beg to use the singular voice.} carry out abroad in a completely different context from what I am used to. I was able to learn a lot from the project itself as well as from the people in the surrounding environment. All in all, this as been yet another exceptional experience!
+
+\p{Unknown subject}
+I always try to find a point in which a given project really differs from others I have done in the past. This time the point which stands out is my relative ignorance about the domain of complex systems and systems engineering more in general. I was in some way prepared thanks to the project carried out during the previous term, but it is still difficult to, for example, judge if the quality of a given visualization could satisfy a systems engineer with regard to the tasks he or she has to perform.
+
+\p{Conclusion}
+In the end, considered the encountered difficulties, I am more than happy with the result, the personal experience I have accumulated in the process, and the new connections that this project gave me the opportunity to establish.

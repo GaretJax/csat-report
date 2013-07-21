@@ -1,28 +1,37 @@
-\newacronym{csat}{CSAT}{Complex Systems (Software) Analysis Toolkit}
+\newacronym{csat}{CSAT}{Complex Systems (Software) Analysis Toolkit}\glsunset{csat}
+\newacronym{crud}{CRUD}{Create, Retrieve, Update, Delete}\glsunset{crud}
+\newacronym{html}{HTML}{HyperText Markup Language}\glsunset{html}
+\newacronym{url}{URL}{Uniform Resource Locator}\glsunset{url}
+\newacronym{tcp}{TCP}{Transport Control Portocol}\glsunset{tcp}
+\newacronym{tty}{TTY}{TeleTypeWriter}\glsunset{tty}
+\newacronym{ssl}{SSL}{Secure Socket Layer}\glsunset{ssl}
+\newacronym{hesso}{HES-SO}{\emph{Haute Ecole Spécialisée de Suisse Occidentale}}\glsunset{hesso}
+\newacronym{api}{API}{Application Programming Interface}\glsunset{api}
+\newacronym{cpu}{CPU}{Central Processing Unit}\glsunset{cpu}
+\newacronym{gpu}{GPU}{Graphics Processing Unit}\glsunset{gpu}
+\newacronym{ui}{UI}{User Interface}\glsunset{ui}
+\newacronym{ram}{RAM}{Random Access Memory}\glsunset{ram}
+\newacronym{cd-rom}{CD-ROM}{Compact Disk - Read Only Memory}\glsunset{cd-rom}
+\newacronym{3d}{3-D}{3-Dimensions}\glsunset{3d}
+\newacronym{2d}{2-D}{2-Dimensions}\glsunset{2d}
+
 \newacronym{voip}{VoIP}{Voice Over IP}
 \newacronym{irc}{IRC}{Internet Relay Chat}
 \newacronym{xmpp}{XMPP}{Extensible Messaging and Presence Protocol}
 \newacronym{gui}{GUI}{Graphical User Interface}
 \newacronym{uc}{UC}{Use Case}
-\newacronym{crud}{CRUD}{Create, Retrieve, Update, Delete}
 \newacronym{mvc}{MVC}{Model View Controller}
 \newacronym{mvt}{MVT}{Model View Template}
-\newacronym{html}{HTML}{HyperText Markup Language}
 \newacronym{orm}{ORM}{Object Relational Mapper}
-\newacronym{url}{URL}{Uniform Resource Locator}
 \newacronym{json}{JSON}{JavaScript Object Notation}
 \newacronym{rpc}{RPC}{Remote Procedure Call}
-\newacronym{tcp}{TCP}{Transport Control Portocol}
-\newacronym{tty}{TTY}{TeleTypeWriter}
-\newacronym{ssl}{SSL}{Secure Socket Layer}
-\newacronym{oss}{OSS}{Open Source Software}
-\newacronym{eiafr}{EIA-FR}{}
-\newacronym{mit}{MIT}{}
+\newacronym{oss}{OSS}{Open-Source Software}
+\newacronym{eiafr}{EIA-FR}{\emph{Ecole d'Ingénieurs et d'Architectes Fribourg}}
+\newacronym{mit}{MIT}{Massachusetts Institute of Technology}
 \newacronym{sql}{SQL}{Standard Query Language}
 \newacronym{http}{HTTP}{HyperText Transport Protocol}
 \newacronym{id}{ID}{Identificator}
 \newacronym{xml}{XML}{Extensible Markup Language}
-\newacronym{api}{API}{Application Programming Interface}
 \newacronym{xsl}{XSL}{Extensible Stylesheet Language}
 \newacronym{gexf}{GEXF}{}
 \newacronym{uuid}{UUID}{Universally Unique Identifier}
@@ -30,12 +39,11 @@
 \newacronym{dtd}{DTD}{Document Type Declaration}
 \newacronym{ssce}{SSCCE}{Short, Self Contained, Correct (Compilable), Example}
 \newacronym{utf}{UTF}{UCS Transformation Format}
-\newacronym{cpu}{CPU}{Central Processing Unit}
-\newacronym{gpu}{GPU}{Graphics Processing Unit}
-\newacronym{ui}{UI}{User Interface}
-\newacronym{ram}{RAM}{Random Access Memory}
 \newacronym{pop3}{POP3}{Post Office Protocol, version 3}
 \newacronym{imap}{IMAP}{Internet Message Access Protocol}
+\newacronym{pdf}{PDF}{Portable Document Format}
+\newacronym{ftp}{FTP}{File Transfer Protocol}
+\newacronym{wsgi}{WSGI}{Web Server Gateway Interface}
 %\newacronym{}{}{}
 
 

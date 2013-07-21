@@ -1,0 +1,17 @@
+\lchapter[graphml]{GraphML specification limitations}
+
+\p{Introduction}
+After the definition of the multi-domain GraphML format, we searched a Python graphing module with GraphML support. Sadly, we find that most of the modules supported GraphML, but failed short to implement the whole specification (notably the support for hierarchical graphs was missing). For this reason we implemented our own GraphML importer and exporter. During this process, we encountered different limitations of the GraphML specification \cite{graphml}.\footnote{Note that the limitations are in the \emph{specification} itself, not in the GraphML \emph{format}.} In this short appendix, we will list our findings and where appropriate detail the measure we took.
+
+\begin{enumerate}
+    \item It is not clear how to deal with the \texttt{parse.nodes} directive when a graph contains nested graphs. Shall the value contain the total number of nodes of the graph (including subgraphs) or only the number of first-level nodes? In the former case, shall a node which contains a subgraph be counted or not? In our case, we assume that the value is the number of top-level nodes.
+    \item Ditto for edges, but additional cases have to be considered: how are edges which span multiple graphs counted? We assume that we count only the number of \texttt{edge} elements directly contained by the graph.
+    \item The provided \gls{dtd} fails to validate documents which contain any namespace (or \texttt{xmlns} attributes).
+    \item The provided \gls{dtd} fails to validate documents which contain the \texttt{attr.*} and \texttt{parse.*} attributes.
+    \item The provided \gls{dtd} specifies a different element type for the \texttt{key} element than the actual specification (\texttt{\#PCDATA} instead of a container of an optional \texttt{default} element).
+    \item It is not clear if a node can contain multiple nested graphs. The \gls{dtd} forbids it, so we assume this case, but multiple graphs are supported at the top level.
+    \item The \gls{dtd} allows \texttt{graph} elements to be nested inside \texttt{edge} elements, but there is no word about it in the specification, we do not consider this case as valid.
+    \item Ditto for hyperedges.
+    \item Externally referenced graphs seem to be supported through \texttt{xlink} (the \gls{dtd} explicitly validates it), but this concept is never mentioned in the specification.
+    \item The \gls{xml} schema seems to fail while validating references for edges on nested graphs. From an initial overview, the schema seems correct and this may be a bug in \texttt{lxml} or \texttt{libxml} (the libraries we use to validate the graphs). Both are well maintained and heavily used libraries, though, and the validation is not doing esoteric checks. They should not present such a bug. More investigation may be needed.
+\end{enumerate}

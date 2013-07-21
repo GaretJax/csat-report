@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,twoside,onecolumn,english,draft]{report}
+\documentclass[10pt,a4paper,twoside,onecolumn,english]{report}
 
 \input{preamble}
 
@@ -7,7 +7,7 @@
 
 % Compilation options
 \toggletrue{twoside}
-%\toggletrue{alttitle}
+\toggletrue{alttitle}
 \toggletrue{title}
 \toggletrue{frontmatter}
 \toggletrue{abstract}
@@ -17,7 +17,7 @@
 %\toggletrue{layout}
 \toggletrue{content}
 \toggletrue{indices}
-%\toggletrue{appendices}
+\toggletrue{appendices}
 
 \input{headers-footers}
 
@@ -56,15 +56,16 @@ keepaspectratio]{images/delaunay}%
   }{}
 
   % Table of contents
-  \begin{adjustwidth}{-\cftsecnumwidth}{0cm}
+  \begin{adjustwidth}{-17pt}{0cm}
     \iftoggle{toc}{%
       \pagestyle{front}
       \renewcommand*\contentsname{\hspace{15pt}Contents}
       \tableofcontents
     }{}
-    \iftoggle{listings}{\mylistings}{}
-	
-  \end{adjustwidth}
+    \end{adjustwidth}
+    \begin{adjustwidth}{-41pt}{0cm}
+    \iftoggle{listings}{\mylistings}{}	
+    \end{adjustwidth}
 
   % Prefaces automatic inclusion
   \iftoggle{prefaces}{%
